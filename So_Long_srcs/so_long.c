@@ -6,7 +6,7 @@
 /*   By: bcarpent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 13:55:30 by bcarpent          #+#    #+#             */
-/*   Updated: 2024/03/26 16:40:36 by bcarpent         ###   ########.fr       */
+/*   Updated: 2024/03/26 18:15:47 by bcarpent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,28 @@ static int	get_map_line_count(char *map, int *collumns, int fd)
 	return (line_count);
 }
 
+int	check_map(char **map)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (map[i])
+	{
+		while (map[i][j])
+		{
+			if (map[i][j] != '0' || map[i][j] != '1'
+				|| map[i][j] != 'C' || map[i][j] != 'E'
+				|| map[i][j] != 'P') //check for '\n' ?
+					return (-1);
+			j++;
+		}
+		i++;
+	}
+	return (1);
+}
+
 int	main(int argc, char **argv)
 {
 	char **map;
@@ -69,5 +91,6 @@ int	main(int argc, char **argv)
 		i++;
 	}
 	//printf("%d\n%d\n", line_count, collumn_count);
+	//free map;
 	return (line_count);
 }
