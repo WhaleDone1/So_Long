@@ -6,7 +6,7 @@
 /*   By: bcarpent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 13:55:30 by bcarpent          #+#    #+#             */
-/*   Updated: 2024/03/26 18:15:47 by bcarpent         ###   ########.fr       */
+/*   Updated: 2024/04/15 09:49:38 by bcarpent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,10 @@ int	main(int argc, char **argv)
 		map[i] = get_next_line(fd);
 		if ((int)ft_strlen(map[i]) - 1 != collumn_count)
 			return (0);
-		//printf("%s", map[i]);
+		printf("%s", map[i]);
 		i++;
 	}
-	//printf("%d\n%d\n", line_count, collumn_count);
-	//free map;
+	printf("%d\n%d\n", line_count, collumn_count);
+	free (map);
 	return (line_count);
 }
