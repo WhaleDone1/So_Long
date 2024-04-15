@@ -6,7 +6,7 @@
 /*   By: bcarpent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 13:55:30 by bcarpent          #+#    #+#             */
-/*   Updated: 2024/04/15 09:49:38 by bcarpent         ###   ########.fr       */
+/*   Updated: 2024/04/15 13:20:48 by bcarpent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int	get_map_line_count(char *map, int *collumns, int fd)
 	return (line_count);
 }
 
-int	check_map(char **map)
+int	check_map_content(char **map)
 {
 	int	i;
 	int	j;
@@ -63,6 +63,35 @@ int	check_map(char **map)
 			j++;
 		}
 		i++;
+	}
+	return (1);
+}
+
+int	check_map_borders(char **map, int collumns, int lines)
+{
+	int	i;
+	int	j;
+
+	i = 1;
+	j = 0;
+	while (map[i])
+	{
+		while (map[0][j] == '1' && j < collumns)
+			j++;
+		if (j < collumns)
+			return (-1);
+		else
+		{
+			while ((map[i][0] == '1') && (map[i][collumns] == '1') && i < lines)
+				i++;
+			if (i < lines)
+				return (-1);
+			j = 0;
+			while (map[i][j] == '1' && j < collumns)
+				j++;
+			if (j < collumns)
+				return (-1);
+		}
 	}
 	return (1);
 }
@@ -85,11 +114,12 @@ int	main(int argc, char **argv)
 	while (i < line_count)
 	{
 		map[i] = get_next_line(fd);
-		if ((int)ft_strlen(map[i]) - 1 != collumn_count)
-			return (0);
-		printf("%s", map[i]);
+		//if ((int)ft_strlen(map[i]) - 1 != collumn_count)
+		//	return (0);//error map too long
+		//printf("%s", map[i]);
 		i++;
 	}
+	if (check_map_borders )
 	printf("%d\n%d\n", line_count, collumn_count);
 	free (map);
 	return (line_count);
