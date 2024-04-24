@@ -6,7 +6,7 @@
 #    By: bcarpent <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/21 13:57:23 by bcarpent          #+#    #+#              #
-#    Updated: 2024/04/15 09:47:45 by bcarpent         ###   ########.fr        #
+#    Updated: 2024/04/24 12:58:52 by bcarpent         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ GNL_DIR = GNL
 SO_LONG_DIR = So_Long_srcs
 SRCS =	$(GNL_DIR)/get_next_line.c $(GNL_DIR)/get_next_line_utils.c \
 	$(SO_LONG_DIR)/so_long.c
-
+LDFLAGS     = -Lminilibx/mlx_Linux -Lminilibx/mlx -L/usr/lib -Imlx_linux -lXext -lX11
+LIB         = ml/libmlx.a ml/libmlx_Linux.a
 
 OBJS = ${SRCS:.c=.o}
 DEPS = ${OBJS:.o=.d}
@@ -36,7 +37,7 @@ all: ${NAME}
 
 ${NAME}: ${OBJS}
 	@echo $(BOLD)$(GREEN_COLOR)Compiling the following files:$(X)$(CYAN_COLOR)[$(SRCS)]$(X)
-	@${CC} ${FLAGS} -o ${NAME} ${OBJS}
+	@${CC} $^ $(LIB) $(LDFLAGS) -o ${NAME}
 	@echo $(BOLD)$(GREEN_COLOR)Compilation done.
 
 %.o : %.c
