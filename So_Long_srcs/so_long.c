@@ -6,7 +6,7 @@
 /*   By: bcarpent <bcarpent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 13:55:30 by bcarpent          #+#    #+#             */
-/*   Updated: 2024/04/24 16:09:47 by bcarpent         ###   ########.fr       */
+/*   Updated: 2024/04/24 16:30:10 by bcarpent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,7 +198,50 @@ void	display_asset(t_data *data)
 			else if (data->map[i][j] == '1')
 				mlx_put_image_to_window(data->mlxptr, data->winptr, data->obstacle  , j * size, i * size);
 		}
+		
 	}
+	
+}
+
+
+void    free_mlx(t_data *data)
+{
+    mlx_destroy_image(data->mlxptr, data->player);
+    mlx_destroy_image(data->mlxptr, data->collectible);
+    mlx_destroy_image(data->mlxptr, data->exit);
+    mlx_destroy_image(data->mlxptr, data->obstacle);
+    mlx_destroy_image(data->mlxptr, data->ground);
+    if (data->winptr)
+        mlx_destroy_window(data->mlxptr, data->winptr);
+    mlx_destroy_display(data->mlxptr);
+    free(data->mlxptr);
+}
+
+int    on_destroy(t_data *data)
+{
+    int    i;
+
+    i = -1;
+    if (data->map)
+    {
+        while (data->map[++i])
+            free(data->map[i]);
+        free(data->map);
+    }
+    free_mlx(data);
+    exit(0);
+    return (0);
+}
+int    on_keypress(int keysym, t_data *data)
+{
+	if (keysym == 65307)
+	{
+		on_destroy(data);
+	}
+	(void)data;
+	printf("keynum = %d \n", keysym);
+	fflush(stdout);
+	return (0);
 }
 
 int	main(int argc, char **argv)
@@ -220,6 +263,8 @@ int	main(int argc, char **argv)
 	
 	display_asset(&data);
 	//free (map);
+	mlx_hook(data.winptr, 2, 1L << 0, &on_keypress, &data);
+	mlx_hook(data.winptr, 17, 1L << 17, &on_destroy, &data);
 	mlx_loop(data.mlxptr);
 	return (0);
 }
