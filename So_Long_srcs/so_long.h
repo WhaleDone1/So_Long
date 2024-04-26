@@ -6,7 +6,7 @@
 /*   By: bcarpent <bcarpent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 13:56:09 by bcarpent          #+#    #+#             */
-/*   Updated: 2024/04/24 16:01:37 by bcarpent         ###   ########.fr       */
+/*   Updated: 2024/04/26 16:10:41 by bcarpent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct t_player
 {
 	int	x;
 	int	y;
+	void *asset;
 }	t_player;
 
 typedef struct s_data
@@ -30,7 +31,7 @@ typedef struct s_data
 	void	*mlxptr;
 	void	*winptr;
 	char	**map;
-	void	*player;
+	//void	*player;
 	void	*ground;
 	void	*obstacle;
 	void	*collectible;
@@ -38,6 +39,7 @@ typedef struct s_data
 	int		height;
 	int		width;
 	int		moves;
+	t_player player;
 }	t_data;
 
 #endif
