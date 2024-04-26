@@ -6,7 +6,7 @@
 /*   By: bcarpent <bcarpent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 13:55:30 by bcarpent          #+#    #+#             */
-/*   Updated: 2024/04/26 17:24:37 by bcarpent         ###   ########.fr       */
+/*   Updated: 2024/04/26 18:33:02 by bcarpent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,33 @@
 //#include "../Libft/libft.h"
 #include <stdio.h>//tmp
 
+void    free_mlx(t_data *data)
+{
+    mlx_destroy_image(data->mlxptr, data->collectible);
+    mlx_destroy_image(data->mlxptr, data->exit);
+    mlx_destroy_image(data->mlxptr, data->obstacle);
+    mlx_destroy_image(data->mlxptr, data->ground);
+    if (data->winptr)
+        mlx_destroy_window(data->mlxptr, data->winptr);
+    mlx_destroy_display(data->mlxptr);
+    free(data->mlxptr);
+}
+
 void	ft_error(t_data	*data, char *s)
 {
-	(void)data;
+	int	i;
+
+	i = 0;
+	if (data->map)
+	{
+		while (data->map[i])
+		{
+			free(data->map[i]);
+			i++;
+		}
+		free(data->map);
+	}
+	free_mlx(data);
 	write(2, s, ft_strlen(s));
 	exit(1);
 }
@@ -143,14 +167,13 @@ void	init_map(t_data *data, char *map)
 		data->map[i] = get_next_line(fd);
 		if ((int)ft_strlen(data->map[i]) - 1 != collumn_count)
 			write(2, "map len error\n", 14);
-		//printf("%s", map[i]);
 		i++;
 	}
 	data->width = collumn_count;
 	data->height = line_count;
 	close(fd);
 	if ((check_map_borders(data->map, collumn_count, line_count)) != 1
-		|| (check_map_requirements(data->map, 0, 0, 0, data) != 1)) // &data ?
+		|| (check_map_requirements(data->map, 0, 0, 0, data) != 1))
 		write(2, "map error\n", 10);
 }
 
@@ -189,8 +212,6 @@ void	display_asset(t_data *data)
 		{
 			if (data->map[i][j] == 'C')
 				mlx_put_image_to_window(data->mlxptr, data->winptr, data->collectible  , j * size, i * size);
-			//else if (data->map[i][j] == 'E')
-			//	mlx_put_image_to_window(data->mlxptr, data->winptr, data->exit  , j * size, i * size);
 			else if (data->map[i][j] == '0' || data->map[i][j] == 'E' || data->map[i][j] == 'P')
 				mlx_put_image_to_window(data->mlxptr, data->winptr, data->ground  , j * size, i * size);
 			else if (data->map[i][j] == '1')
@@ -207,8 +228,6 @@ int	stage_clear(t_data *data)
 	int	j;
 
 	i = 0;
-
-	printf("ddd");
 	while (data->map[i])
 	{
 		j = 0;
@@ -223,48 +242,6 @@ int	stage_clear(t_data *data)
 		i++;
 	}
 	return (1);
-}
-
-void	move_player(t_data *data, int X, int Y)
-{
-	if (data->map[X][Y] == '1')
-	{
-		X = data->player.x;
-		Y = data->player.y;
-	}
-	if (data->map[X][Y] != '1')
-	{
-		if (data->map[X][Y] == 'C')
-			data->map[X][Y] = '0';
-		mlx_put_image_to_window(data->mlxptr, data->winptr, data->ground, data->player.y * size, data->player.x * size);
-		mlx_put_image_to_window(data->mlxptr, data->winptr, data->player.asset, Y * size, X * size);
-		data->player.x = X;
-		data->player.y = Y;		
-	}
-	if (stage_clear(data) == 1)
-	{
-		Y = 0;
-		while (++Y < data->width)
-		{
-			X = 0;
-			while (++X < data->height)
-				if (data->map[X][Y] == 'E')
-					mlx_put_image_to_window(data->mlxptr, data->winptr, data->exit, Y * size, X * size);
-		}
-	}
-}
-
-void    free_mlx(t_data *data)
-{
-    //mlx_destroy_image(data->mlxptr, data->player);
-    mlx_destroy_image(data->mlxptr, data->collectible);
-    mlx_destroy_image(data->mlxptr, data->exit);
-    mlx_destroy_image(data->mlxptr, data->obstacle);
-    mlx_destroy_image(data->mlxptr, data->ground);
-    if (data->winptr)
-        mlx_destroy_window(data->mlxptr, data->winptr);
-    mlx_destroy_display(data->mlxptr);
-    free(data->mlxptr);
 }
 
 int    on_destroy(t_data *data)
@@ -283,6 +260,32 @@ int    on_destroy(t_data *data)
     return (0);
 }
 
+void	move_player(t_data *data, int X, int Y)
+{
+	if (data->map[X][Y] != '1')
+	{
+		if (data->map[X][Y] == 'C')
+			data->map[X][Y] = '0';
+		mlx_put_image_to_window(data->mlxptr, data->winptr, data->ground, data->player.y * size, data->player.x * size);
+		mlx_put_image_to_window(data->mlxptr, data->winptr, data->player.asset, Y * size, X * size);
+		data->player.x = X;
+		data->player.y = Y;
+		if (data->map[X][Y] == 'E' && (stage_clear(data) == 1))
+			on_destroy(data);
+	}
+	if (stage_clear(data) == 1)
+	{
+		Y = 0;
+		while (++Y < data->width)
+		{
+			X = 0;
+			while (++X < data->height)
+				if (data->map[X][Y] == 'E')
+					mlx_put_image_to_window(data->mlxptr, data->winptr, data->exit, Y * size, X * size);
+		}
+	}
+}
+
 int    on_keypress(int keysym, t_data *data)
 {
 	if (keysym == 65307)
@@ -295,10 +298,9 @@ int    on_keypress(int keysym, t_data *data)
 		move_player(data, data->player.x, data->player.y - 1);
 	else if (keysym == 100)
 		move_player(data, data->player.x, data->player.y + 1);
-		
 	(void)data;
-	printf("keynum = %d \n", keysym);
-	fflush(stdout);
+	//printf("keynum = %d \n", keysym);
+	//fflush(stdout);
 	return (0);
 }
 
@@ -306,20 +308,21 @@ int	main(int argc, char **argv)
 {
 	t_data	data;
 	int fd;
+
 	if (argc != 2)
-		return (1);
+		return (write(2, "Bad arguments\n", 14));
 	data.mlxptr = mlx_init();
-	if (data.mlxptr == 0)
+	if (!data.mlxptr)
 		return (1);
 	fd = open(argv[1], O_RDONLY);
 	if (!fd)
 		return (1);
 	init_asset(&data);
 	init_map(&data, argv[1]);
-	data.winptr = mlx_new_window(data.mlxptr, data.width * size, data.height * size, "name");
-	
+	data.winptr = mlx_new_window(data.mlxptr, data.width * size, data.height * size, "bcarpent");
+	if (!data.winptr)
+		ft_error(&data, "Failed to create a new window"); 
 	display_asset(&data);
-	//free (map);
 	mlx_hook(data.winptr, 2, 1L << 0, &on_keypress, &data);
 	mlx_hook(data.winptr, 17, 1L << 17, &on_destroy, &data);
 	mlx_loop(data.mlxptr);
