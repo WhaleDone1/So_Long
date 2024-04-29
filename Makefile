@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bcarpent <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: barpent <barpent@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/21 13:57:23 by bcarpent          #+#    #+#              #
-#    Updated: 2024/04/24 12:58:52 by bcarpent         ###   ########.fr        #
+#    Updated: 2024/04/29 15:04:31 by barpent          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,8 @@ LIBFT_DIR = Libft
 GNL_DIR = GNL
 SO_LONG_DIR = So_Long_srcs
 SRCS =	$(GNL_DIR)/get_next_line.c $(GNL_DIR)/get_next_line_utils.c \
-	$(SO_LONG_DIR)/so_long.c
+	$(SO_LONG_DIR)/so_long.c $(SO_LONG_DIR)/so_long_map.c $(SO_LONG_DIR)/so_long_utils.c \
+	$(SO_LONG_DIR)/so_long_display.c
 LDFLAGS     = -Lminilibx/mlx_Linux -Lminilibx/mlx -L/usr/lib -Imlx_linux -lXext -lX11
 LIB         = ml/libmlx.a ml/libmlx_Linux.a
 
