@@ -6,13 +6,12 @@
 /*   By: barpent <barpent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 13:55:30 by bcarpent          #+#    #+#             */
-/*   Updated: 2024/04/29 15:51:57 by barpent          ###   ########.fr       */
+/*   Updated: 2024/04/29 16:14:26 by barpent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 #include "../GNL/get_next_line.h"
-#include <stdio.h> //tmp
 
 void free_mlx(t_data *data)
 {
