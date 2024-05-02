@@ -3,22 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: barpent <barpent@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bcarpent <bcarpent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 13:56:09 by bcarpent          #+#    #+#             */
-/*   Updated: 2024/04/29 15:57:38 by barpent          ###   ########.fr       */
+/*   Updated: 2024/05/02 13:58:21 by bcarpent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
-#define SO_LONG_H
-#define size 24
+# define SO_LONG_H
+# define size 24
 
-#include <sys/types.h>
-#include <stdlib.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <../ml/mlx.h>
+# include <sys/types.h>
+# include <stdlib.h>
+# include <sys/stat.h>
+# include <fcntl.h>
+# include <../ml/mlx.h>
+# include <stdio.h>
 
 typedef struct t_player
 {
@@ -44,7 +45,7 @@ typedef struct s_data
 
 void free_mlx(t_data *data);
 void ft_error(t_data *data, char *s);
-void init_map(t_data *data, char *map);
+int init_map(t_data *data, char *map);
 void init_asset(t_data *data);
 void display_asset(t_data *data);
 int on_destroy(t_data *data);

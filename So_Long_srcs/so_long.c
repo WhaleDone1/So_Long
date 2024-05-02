@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: barpent <barpent@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bcarpent <bcarpent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 13:55:30 by bcarpent          #+#    #+#             */
-/*   Updated: 2024/04/29 16:14:26 by barpent          ###   ########.fr       */
+/*   Updated: 2024/05/02 14:05:17 by bcarpent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 void free_mlx(t_data *data)
 {
-	mlx_destroy_image(data->mlxptr, data->player.asset);
+	if (data->player.asset)
+		mlx_destroy_image(data->mlxptr, data->player.asset);
 	mlx_destroy_image(data->mlxptr, data->collectible);
 	mlx_destroy_image(data->mlxptr, data->exit);
 	mlx_destroy_image(data->mlxptr, data->obstacle);
@@ -23,7 +24,7 @@ void free_mlx(t_data *data)
 	if (data->winptr)
 		mlx_destroy_window(data->mlxptr, data->winptr);
 	mlx_destroy_display(data->mlxptr);
-	free(data->mlxptr);
+	 free(data->mlxptr);
 }
 
 void ft_error(t_data *data, char *s)
@@ -77,6 +78,7 @@ static int check_args(int argc, char **argv)
 int main(int argc, char **argv)
 {
 	t_data data;
+	data.winptr = NULL;
 	int fd;
 
 	if (check_args(argc, argv) > 0)
@@ -88,7 +90,8 @@ int main(int argc, char **argv)
 	if (!fd)
 		return (1);
 	init_asset(&data);
-	init_map(&data, argv[1]);
+	if (init_map(&data, argv[1]) == -1)
+		ft_error(&data, "Map error");
 	data.winptr = mlx_new_window(data.mlxptr, data.width * size, data.height * size, "bcarpent");
 	if (!data.winptr)
 		ft_error(&data, "Failed to create a new window");

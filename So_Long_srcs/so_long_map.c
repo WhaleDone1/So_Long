@@ -79,37 +79,30 @@ static int check_map_requirements(char **map, int C, int E, int P, t_data *data)
         return (1);
     return (0);
 }
+
 static int check_map_borders(char **map, int collumns, int lines)
 {
-    int i;
-    int j;
+	int	i;
+	int	j;
 
-    i = 1;
-    j = 0;
-    while (map[i])
-    {
-        while (map[0][j] == '1' && j < collumns)
-            j++;
-        if (j != collumns)
-            return (-1);
-        else
-        {
-            while ((map[i][0] == '1') && (map[i][collumns - 1] == '1') && i < lines - 1)
-                i++;
-            if (i != lines - 1)
-                return (-1);
-            j = 0;
-            while (map[i][j] == '1' && j < collumns - 1)
-                j++;
-            if (j != collumns - 1)
-                return (-1);
-        }
-        i++;
-    }
+	i = -1;
+	while (map[++i])
+	{
+		j = -1;
+		while (map[i][++j] && map[i][j] != '\n')
+		{
+			if ((i == 0 || i == lines - 1 || j == 0 \
+				|| j == collumns - 1) && map[i][j] != '1')
+				return (-1);
+		}
+		if (j != collumns)
+			return (-1);
+	}
     return (1);
 }
 
-void init_map(t_data *data, char *map)
+
+int init_map(t_data *data, char *map)
 {
     int i;
     int fd;
@@ -119,8 +112,9 @@ void init_map(t_data *data, char *map)
     i = 0;
     collumn_count = 0;
     line_count = get_map_line_count(map, &collumn_count, 0);
-    data->map = malloc(sizeof(char *) * line_count + 1);
+    data->map = malloc(sizeof(char *) * (line_count + 1));
     fd = open(map, O_RDONLY);
+
     while (i < line_count)
     {
         data->map[i] = get_next_line(fd);
@@ -128,9 +122,11 @@ void init_map(t_data *data, char *map)
             write(2, "map len error\n", 14);
         i++;
     }
+    data->map[i] = 0;
     data->width = collumn_count;
     data->height = line_count;
     close(fd);
     if ((check_map_borders(data->map, collumn_count, line_count)) != 1 || (check_map_requirements(data->map, 0, 0, 0, data) != 1))
-        write(2, "map error\n", 10);
+        return (-1);
+    return (0);
 }
