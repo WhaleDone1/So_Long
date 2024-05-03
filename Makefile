@@ -6,7 +6,7 @@
 #    By: bcarpent <bcarpent@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/21 13:57:23 by bcarpent          #+#    #+#              #
-#    Updated: 2024/05/03 13:53:34 by bcarpent         ###   ########.fr        #
+#    Updated: 2024/05/03 19:20:28 by bcarpent         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ GNL_DIR = GNL
 SO_LONG_DIR = So_Long_srcs
 SRCS =	$(GNL_DIR)/get_next_line.c $(GNL_DIR)/get_next_line_utils.c \
 	$(SO_LONG_DIR)/so_long.c $(SO_LONG_DIR)/so_long_map.c $(SO_LONG_DIR)/so_long_utils.c \
-	$(SO_LONG_DIR)/so_long_display.c $(SO_LONG_DIR)/so_long_checker.c
+	$(SO_LONG_DIR)/so_long_display.c $(SO_LONG_DIR)/so_long_checker.c \
+	$(SO_LONG_DIR)/so_long_map_utils.c
 LDFLAGS     = -Lminilibx/mlx_Linux -Lminilibx/mlx -L/usr/lib -Imlx_linux -lXext -lX11
 LIB         = ml/libmlx.a ml/libmlx_Linux.a
 

@@ -51,18 +51,17 @@ static int	get_map_line_count(char *map, int *collumns, int fd)
 	return (line_count);
 }
 
-static int	check_map_requirements(char **map, int C,
+int	check_map_requirements(char **map, int C,
 int E, int P, t_data *data)
 {
 	int		i;
 	int		j;
 
-	i = 0;
-	j = 0;
-	while (map[i])
+	i = -1;
+	while (map[++i])
 	{
-		j = 0;
-		while (map[i][j])
+		j = -1;
+		while (map[i][++j])
 		{
 			if (map[i][j] == 'C')
 				C++;
@@ -73,16 +72,14 @@ int E, int P, t_data *data)
 			else if ((map[i][j] != '0') && (map[i][j] != '1')
 			&& (map[i][j] != '\n'))
 				return (-1);
-			j++;
 		}
-		i++;
 	}
 	if ((C > 0) && (P == 1) && (E == 1))
 		return (1);
 	return (0);
 }
 
-static int	check_map_borders(char **map, int collumns, int lines)
+int	check_map_borders(char **map, int collumns, int lines)
 {
 	int		i;
 	int		j;
@@ -128,9 +125,5 @@ int	init_map(t_data *data, char *map)
 	data->width = collumn_count;
 	data->height = line_count;
 	close(fd);
-	if ((check_map_borders(data->map, collumn_count, line_count)) != 1
-		|| (check_map_requirements(data->map, 0, 0, 0, data) != 1)
-		|| (so_long_solver(data) != 1))
-		return (-1);
-	return (0);
+	return (get_map(data, collumn_count, line_count));
 }

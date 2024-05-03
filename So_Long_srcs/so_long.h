@@ -6,7 +6,7 @@
 /*   By: bcarpent <bcarpent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 13:56:09 by bcarpent          #+#    #+#             */
-/*   Updated: 2024/05/03 18:54:09 by bcarpent         ###   ########.fr       */
+/*   Updated: 2024/05/03 19:30:26 by bcarpent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,9 @@ void	display_asset(t_data *data);
 int		on_destroy(t_data *data);
 int		on_keypress(int keysym, t_data *data);
 int		init_map(t_data *data, char *map);
+int	check_map_requirements(char **map, int C, int E, int P, t_data *data);
+int	check_map_borders(char **map, int collumns, int lines);
 int		so_long_solver(t_data *data);
+int		get_map(t_data *data, int collumn_count, int line_count);
 
 #endif
