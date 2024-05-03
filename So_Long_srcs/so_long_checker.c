@@ -6,7 +6,7 @@
 /*   By: bcarpent <bcarpent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 13:18:11 by bcarpent          #+#    #+#             */
-/*   Updated: 2024/05/03 17:16:10 by bcarpent         ###   ########.fr       */
+/*   Updated: 2024/05/03 18:12:42 by bcarpent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ static char **mapdup(t_data *data)
     mapcpy = malloc(sizeof(char *) * (data->height + 1));
     if (!mapcpy)
         ft_error(data, "Malloc failed\n");
-    mapcpy[0] = ft_strdup("");
     while (i < data->height)
     {
         mapcpy[i] = ft_strdup(data->map[i]);
