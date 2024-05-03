@@ -6,16 +6,16 @@
 /*   By: barpent <barpent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 14:52:32 by barpent           #+#    #+#             */
-/*   Updated: 2024/04/29 14:52:32 by barpent          ###   ########.fr       */
+/*   Updated: 2024/05/03 18:44:08 by bcarpent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static int stage_clear(t_data *data)
+static int	stage_clear(t_data *data)
 {
-	int i;
-	int j;
+	int		i;
+	int		j;
 
 	i = 0;
 	while (data->map[i])
@@ -24,9 +24,7 @@ static int stage_clear(t_data *data)
 		while (data->map[i][j])
 		{
 			if (data->map[i][j] == 'C')
-			{
 				return (0);
-			}
 			j++;
 		}
 		i++;
@@ -34,9 +32,9 @@ static int stage_clear(t_data *data)
 	return (1);
 }
 
-int on_destroy(t_data *data)
+int	on_destroy(t_data *data)
 {
-	int i;
+	int		i;
 
 	i = -1;
 	if (data->map)
@@ -50,14 +48,16 @@ int on_destroy(t_data *data)
 	return (0);
 }
 
-static void move_player(t_data *data, int X, int Y)
+static void	move_player(t_data *data, int X, int Y)
 {
 	if (data->map[X][Y] != '1')
 	{
 		if (data->map[X][Y] == 'C')
 			data->map[X][Y] = '0';
-		mlx_put_image_to_window(data->mlxptr, data->winptr, data->ground, data->player.y * size, data->player.x * size);
-		mlx_put_image_to_window(data->mlxptr, data->winptr, data->player.asset, Y * size, X * size);
+		mlx_put_image_to_window(data->mlxptr, data->winptr, data->ground,
+			data->player.y * SIZE, data->player.x * SIZE);
+		mlx_put_image_to_window(data->mlxptr, data->winptr, data->player.asset,
+			Y * SIZE, X * SIZE);
 		data->player.x = X;
 		data->player.y = Y;
 		if (data->map[X][Y] == 'E' && (stage_clear(data) == 1))
@@ -71,12 +71,13 @@ static void move_player(t_data *data, int X, int Y)
 			X = 0;
 			while (++X < data->height)
 				if (data->map[X][Y] == 'E')
-					mlx_put_image_to_window(data->mlxptr, data->winptr, data->exit, Y * size, X * size);
+					mlx_put_image_to_window(data->mlxptr, data->winptr,
+						data->exit, Y * SIZE, X * SIZE);
 		}
 	}
 }
 
-int on_keypress(int keysym, t_data *data)
+int	on_keypress(int keysym, t_data *data)
 {
 	if (keysym == 65307)
 		on_destroy(data);

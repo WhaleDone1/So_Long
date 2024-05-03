@@ -6,14 +6,14 @@
 /*   By: bcarpent <bcarpent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 13:55:30 by bcarpent          #+#    #+#             */
-/*   Updated: 2024/05/02 14:05:17 by bcarpent         ###   ########.fr       */
+/*   Updated: 2024/05/03 18:56:09 by bcarpent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 #include "../GNL/get_next_line.h"
 
-void free_mlx(t_data *data)
+void	free_mlx(t_data *data)
 {
 	if (data->player.asset)
 		mlx_destroy_image(data->mlxptr, data->player.asset);
@@ -24,12 +24,12 @@ void free_mlx(t_data *data)
 	if (data->winptr)
 		mlx_destroy_window(data->mlxptr, data->winptr);
 	mlx_destroy_display(data->mlxptr);
-	 free(data->mlxptr);
+	free(data->mlxptr);
 }
 
-void ft_error(t_data *data, char *s)
+void	ft_error(t_data *data, char *s)
 {
-	int i;
+	int		i;
 
 	i = 0;
 	if (data->map)
@@ -45,20 +45,23 @@ void ft_error(t_data *data, char *s)
 	write(2, s, ft_strlen(s));
 	exit(1);
 }
-static int ft_strcmp(char *s1, char *s2)
-{
-	int i = 0;
 
+static int	ft_strcmp(char *s1, char *s2)
+{
+	int		i;
+
+	i = 0;
 	while ((s1[i] == s2[i]) && s1[i] && s2[i])
 		i++;
 	return (s1[i] - s2[i]);
 }
 
-static int check_args(int argc, char **argv)
+static int	check_args(int argc, char **argv)
 {
-	int i;
-	int n;
-	char str[5];
+	int		i;
+	int		n;
+	char	str[5];
+
 	if (argc != 2)
 		return (write(2, "Bad arguments\n", 14));
 	i = ft_strlen(argv[1]) - 1;
@@ -75,12 +78,12 @@ static int check_args(int argc, char **argv)
 	return (0);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	t_data data;
-	data.winptr = NULL;
-	int fd;
+	t_data	data;
+	int		fd;
 
+	data.winptr = NULL;
 	if (check_args(argc, argv) > 0)
 		return (1);
 	data.mlxptr = mlx_init();
@@ -92,7 +95,8 @@ int main(int argc, char **argv)
 	init_asset(&data);
 	if (init_map(&data, argv[1]) == -1)
 		ft_error(&data, "Map error");
-	data.winptr = mlx_new_window(data.mlxptr, data.width * size, data.height * size, "bcarpent");
+	data.winptr = mlx_new_window(data.mlxptr, data.width * SIZE,
+			data.height * SIZE, "bcarpent");
 	if (!data.winptr)
 		ft_error(&data, "Failed to create a new window");
 	display_asset(&data);

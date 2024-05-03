@@ -6,15 +6,15 @@
 /*   By: barpent <barpent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:22:37 by bcarpent          #+#    #+#             */
-/*   Updated: 2024/02/29 14:21:58 by barpent          ###   ########.fr       */
+/*   Updated: 2024/05/03 19:01:20 by bcarpent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t ft_strlen(const char *s)
+size_t	ft_strlen(const char *s)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (s[i])
@@ -22,9 +22,9 @@ size_t ft_strlen(const char *s)
 	return (i);
 }
 
-int check_nl(char *stash)
+int	check_nl(char *stash)
 {
-	size_t i;
+	size_t	i;
 
 	i = -1;
 	if (!stash)
@@ -35,9 +35,9 @@ int check_nl(char *stash)
 	return (-1);
 }
 
-char *ft_strcpy(char *dst, const char *src)
+char	*ft_strcpy(char *dst, const char *src)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (src[i])
@@ -49,11 +49,11 @@ char *ft_strcpy(char *dst, const char *src)
 	return (dst);
 }
 
-char *ft_strjoin(char *stash, char *buffer)
+char	*ft_strjoin(char *stash, char *buffer)
 {
-	char *result;
-	size_t i;
-	size_t a;
+	char	*result;
+	size_t	i;
+	size_t	a;
 
 	a = -1;
 	i = -1;
@@ -69,10 +69,10 @@ char *ft_strjoin(char *stash, char *buffer)
 	return (result);
 }
 
-char *ft_strdup(char *buffer)
+char	*ft_strdup(char *buffer)
 {
-	char *result;
-	size_t i;
+	char	*result;
+	size_t	i;
 
 	i = -1;
 	result = malloc(sizeof(char) * (ft_strlen(buffer) + 1));
