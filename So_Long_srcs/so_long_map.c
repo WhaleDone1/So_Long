@@ -114,7 +114,8 @@ int init_map(t_data *data, char *map)
     line_count = get_map_line_count(map, &collumn_count, 0);
     data->map = malloc(sizeof(char *) * (line_count + 1));
     fd = open(map, O_RDONLY);
-
+    if (!fd)
+        ft_error(data, "Failed to open map\n");
     while (i < line_count)
     {
         data->map[i] = get_next_line(fd);
@@ -126,7 +127,9 @@ int init_map(t_data *data, char *map)
     data->width = collumn_count;
     data->height = line_count;
     close(fd);
-    if ((check_map_borders(data->map, collumn_count, line_count)) != 1 || (check_map_requirements(data->map, 0, 0, 0, data) != 1))
+    if ((check_map_borders(data->map, collumn_count, line_count)) != 1 
+    || (check_map_requirements(data->map, 0, 0, 0, data) != 1)
+    || (so_long_solver(data) != 1))
         return (-1);
     return (0);
 }

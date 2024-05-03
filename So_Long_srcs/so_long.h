@@ -6,7 +6,7 @@
 /*   By: bcarpent <bcarpent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 13:56:09 by bcarpent          #+#    #+#             */
-/*   Updated: 2024/05/02 13:58:21 by bcarpent         ###   ########.fr       */
+/*   Updated: 2024/05/03 15:22:45 by bcarpent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,11 @@ typedef struct s_data
 
 void free_mlx(t_data *data);
 void ft_error(t_data *data, char *s);
-int init_map(t_data *data, char *map);
 void init_asset(t_data *data);
 void display_asset(t_data *data);
 int on_destroy(t_data *data);
 int on_keypress(int keysym, t_data *data);
+int init_map(t_data *data, char *map);
+int so_long_solver(t_data *data);
 
 #endif
