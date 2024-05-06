@@ -46,25 +46,24 @@ static int	get_map_line_count(char *map, int *collumns, int fd)
 		else if (count == 0)
 			(*collumns)++;
 	}
-	free(buffer);
-	close(fd);
-	return (line_count);
+	return (free(buffer), close(fd), line_count);
 }
 
-int	check_map_requirements(char **map, int C,
-int E, int P, t_data *data)
+int	check_map_requirements(char **map, int E, int P, t_data *data)
 {
 	int		i;
 	int		j;
+	int		c;
 
 	i = -1;
+	c = 0;
 	while (map[++i])
 	{
 		j = -1;
 		while (map[i][++j])
 		{
 			if (map[i][j] == 'C')
-				C++;
+				c++;
 			else if (map[i][j] == 'E')
 				E++;
 			else if (map[i][j] == 'P')
