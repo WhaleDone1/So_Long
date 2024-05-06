@@ -6,7 +6,7 @@
 /*   By: bcarpent <bcarpent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 13:55:30 by bcarpent          #+#    #+#             */
-/*   Updated: 2024/05/03 18:56:09 by bcarpent         ###   ########.fr       */
+/*   Updated: 2024/05/06 15:29:28 by bcarpent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ int	main(int argc, char **argv)
 	int		fd;
 
 	data.winptr = NULL;
+	data.moves = 0;
 	if (check_args(argc, argv) > 0)
 		return (1);
 	data.mlxptr = mlx_init();

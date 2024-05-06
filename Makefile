@@ -6,7 +6,7 @@
 #    By: bcarpent <bcarpent@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/21 13:57:23 by bcarpent          #+#    #+#              #
-#    Updated: 2024/05/03 19:20:28 by bcarpent         ###   ########.fr        #
+#    Updated: 2024/05/06 15:50:32 by bcarpent         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,12 @@ FLAGS = -Wall -Wextra -Werror
 NAME = so_long
 LIBFT_DIR = Libft
 GNL_DIR = GNL
+PRINTF_DIR = Ft_Printf
 SO_LONG_DIR = So_Long_srcs
 SRCS =	$(GNL_DIR)/get_next_line.c $(GNL_DIR)/get_next_line_utils.c \
+	$(PRINTF_DIR)/ft_printf.c $(PRINTF_DIR)/ft_itoa.c $(PRINTF_DIR)/ft_uitoa.c \
+	$(PRINTF_DIR)/ft_putnbrhexa_printf.c $(PRINTF_DIR)/ft_putnbrptr_printf.c \
+	$(PRINTF_DIR)/ft_utils_printf.c \
 	$(SO_LONG_DIR)/so_long.c $(SO_LONG_DIR)/so_long_map.c $(SO_LONG_DIR)/so_long_utils.c \
 	$(SO_LONG_DIR)/so_long_display.c $(SO_LONG_DIR)/so_long_checker.c \
 	$(SO_LONG_DIR)/so_long_map_utils.c

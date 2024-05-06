@@ -6,7 +6,7 @@
 /*   By: bcarpent <bcarpent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 10:03:48 by bcarpent          #+#    #+#             */
-/*   Updated: 2024/05/06 11:58:39 by bcarpent         ###   ########.fr       */
+/*   Updated: 2024/05/06 16:06:47 by bcarpent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,4 +19,20 @@ int	get_map(t_data *data, int collumn_count, int line_count)
 		|| (so_long_solver(data) != 1))
 		return (-1);
 	return (0);
+}
+
+void	show_exit(t_data *data)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (++y < data->width)
+	{
+		x = 0;
+		while (++x < data->height)
+			if (data->map[x][y] == 'E')
+				mlx_put_image_to_window(data->mlxptr, data->winptr,
+					data->exit, y * SIZE, x * SIZE);
+	}
 }

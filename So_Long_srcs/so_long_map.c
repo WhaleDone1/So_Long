@@ -6,19 +6,19 @@
 /*   By: barpent <barpent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 14:52:38 by barpent           #+#    #+#             */
-/*   Updated: 2024/05/03 18:40:14 by bcarpent         ###   ########.fr       */
+/*   Updated: 2024/05/06 12:07:00 by bcarpent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 #include "../GNL/get_next_line.h"
 
-static int	init_player(t_data *data, int P, int x, int y)
+static int	init_player(t_data *data, int p, int x, int y)
 {
-	P++;
+	p++;
 	data->player.x = x;
 	data->player.y = y;
-	return (P);
+	return (p);
 }
 
 static int	get_map_line_count(char *map, int *collumns, int fd)
@@ -49,7 +49,7 @@ static int	get_map_line_count(char *map, int *collumns, int fd)
 	return (free(buffer), close(fd), line_count);
 }
 
-int	check_map_requirements(char **map, int E, int P, t_data *data)
+int	check_map_requirements(char **map, int e, int p, t_data *data)
 {
 	int		i;
 	int		j;
@@ -65,15 +65,15 @@ int	check_map_requirements(char **map, int E, int P, t_data *data)
 			if (map[i][j] == 'C')
 				c++;
 			else if (map[i][j] == 'E')
-				E++;
+				e++;
 			else if (map[i][j] == 'P')
-				P = init_player(data, P, i, j);
+				p = init_player(data, p, i, j);
 			else if ((map[i][j] != '0') && (map[i][j] != '1')
 			&& (map[i][j] != '\n'))
 				return (-1);
 		}
 	}
-	if ((C > 0) && (P == 1) && (E == 1))
+	if ((c > 0) && (p == 1) && (e == 1))
 		return (1);
 	return (0);
 }
