@@ -108,11 +108,11 @@ int	init_map(t_data *data, char *map)
 
 	i = 0;
 	collumn_count = 0;
+	fd = open(map, O_RDONLY);
+	if (fd == -1)
+		return (-1);
 	line_count = get_map_line_count(map, &collumn_count, 0);
 	data->map = malloc(sizeof(char *) * (line_count + 1));
-	fd = open(map, O_RDONLY);
-	if (!fd)
-		ft_error(data, "Failed to open map\n");
 	while (i < line_count)
 	{
 		data->map[i] = get_next_line(fd);

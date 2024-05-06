@@ -6,12 +6,12 @@
 #    By: bcarpent <bcarpent@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/21 13:57:23 by bcarpent          #+#    #+#              #
-#    Updated: 2024/05/06 15:50:32 by bcarpent         ###   ########.fr        #
+#    Updated: 2024/05/06 17:39:43 by bcarpent         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -g3
 
 NAME = so_long
 LIBFT_DIR = Libft
@@ -43,7 +43,7 @@ all: ${NAME}
 
 ${NAME}: ${OBJS}
 	@echo $(BOLD)$(GREEN_COLOR)Compiling the following files:$(X)$(CYAN_COLOR)[$(SRCS)]$(X)
-	@${CC} $^ $(LIB) $(LDFLAGS) -o ${NAME}
+	@${CC} $^ $(LIB) $(LDFLAGS) -o ${NAME} 
 	@echo $(BOLD)$(GREEN_COLOR)Compilation done.
 
 %.o : %.c
