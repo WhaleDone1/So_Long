@@ -6,7 +6,7 @@
 /*   By: bcarpent <bcarpent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 13:55:30 by bcarpent          #+#    #+#             */
-/*   Updated: 2024/05/06 18:02:17 by bcarpent         ###   ########.fr       */
+/*   Updated: 2024/05/07 09:24:57 by bcarpent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	main(int argc, char **argv)
 		return (write(2, "ERROR\n", 6));
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
-		return (mlx_destroy_display(data.mlxptr), free(data.mlxptr), write(2, "ERROR\n", 6), 1);
+		return (fd_error(&data));
 	init_asset(&data);
 	if (init_map(&data, argv[1]) == -1)
 		ft_error(&data, "Map error");

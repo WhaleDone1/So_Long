@@ -6,7 +6,7 @@
 /*   By: bcarpent <bcarpent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 13:56:09 by bcarpent          #+#    #+#             */
-/*   Updated: 2024/05/06 16:03:02 by bcarpent         ###   ########.fr       */
+/*   Updated: 2024/05/07 09:22:01 by bcarpent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,6 @@ int		check_map_requirements(char **map, int e, int p, t_data *data);
 int		check_map_borders(char **map, int collumns, int lines);
 int		so_long_solver(t_data *data);
 int		get_map(t_data *data, int collumn_count, int line_count);
+int		fd_error(t_data *data);
 
 #endif
